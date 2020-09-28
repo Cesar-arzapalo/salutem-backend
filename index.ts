@@ -10,7 +10,7 @@ server.app.use(bodyParser.urlencoded({extended:true}));
 server.app.use(bodyParser.json());
 
 //rutas del app
-server.app.use('/pregunta', preguntaRoutes);
+server.app.use('/preguntas', preguntaRoutes);
 
 //conectar db
 mongoose.connect('mongodb+srv://aptir:p5jpCkkRMDEPQS6M@cluster0.fnwct.mongodb.net/triaje?retryWrites=true&w=majority',
