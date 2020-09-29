@@ -19,6 +19,12 @@ const preguntaSchema  =new Schema({
     },
     nroPagina:{
         type: Number
+    },
+    peso:{
+        type: Number
+    },
+    pesoAlternativas:{
+        type: [Number]
     }
 });
 
@@ -28,6 +34,8 @@ interface IPregunta extends Document {
     tipoVariable: String;
     alternativas: [String];
     nroPagina: Number;
+    peso: Number;
+    pesoAlternativas: [Number];
 };
 
 export const Pregunta = model<IPregunta>('preguntas', preguntaSchema);

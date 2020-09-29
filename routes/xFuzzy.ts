@@ -4,43 +4,47 @@ import { correrXFuzzy}  from "../conexion/conexionXFuzzy";
 const triajeRoutes = Router();
 
 
-interface triajeInputQuery {
-        cantidadSintomas: number;
-        gravedadSintoma: number;
-        contacto: number;
-        riesgo: number;
+class TriajeInputQuery {
+    constructor(public cantidadSintomas: number,
+                public gravedadSintoma: number,
+                public contacto: number,
+                public riesgo: number){
+    }
 };
 
-interface triajeOutputQuery {
+interface TriajeOutputQuery {
     triaje?: number;
 };
 
-let getPreguntaQuery = (req: any): triajeOutputQuery => {
-    let query: triajeOutputQuery = {}; 
+let getPreguntaQuery = (req: any): TriajeOutputQuery => {
+    let query: TriajeOutputQuery = {}; 
     
     if(req.query.tj != null){
         query.triaje = Number(req.query.tj);
     }
+    return query;
+}
 
+let getTirajeInputQuery = (req: any): TriajeInputQuery => {
+    const query: TriajeInputQuery = new TriajeInputQuery(
+        Number(req.query.cantidad),
+        Number(req.query.gravedad),
+        Number(req.query.contacto),
+        Number(req.query.riesgo)
+    );
     return query;
 }
 
 triajeRoutes.get('/' , (req, resp)=>{
+    const consulta: TriajeInputQuery = getTirajeInputQuery(req);
     
-    const consulta: triajeInputQuery = {
-        cantidadSintomas: req.body.cantidad,
-        gravedadSintoma : req.body.gravedad,
-        contacto        : req.body.contacto,
-        riesgo          : req.body.riesgo
-    };
+    correrXFuzzy(consulta.cantidadSintomas , 
+                consulta.gravedadSintoma,
+                consulta.contacto,
+                consulta.riesgo)
+        .then(res => resp.json({ok: true, valorTriaje: res}))
+        .catch(err => resp.json({ok: false, mensaje: err}))
     
-    resp.json({
-        ok: true, 
-        mensaje: correrXFuzzy(consulta.cantidadSintomas, 
-                                consulta.gravedadSintoma,
-                                consulta.contacto,
-                                consulta.riesgo)
-    });
     
 });
 

@@ -11,6 +11,8 @@ interface PreguntaQuery {
         tipoVariable?: String;
         alternativas?: [String];
         nroPagina?: Number;
+        peso?: Number;
+        pesoAlternativas?: [Number];
 };
 
 let getPreguntaQuery = (req: any): PreguntaQuery => {
@@ -36,6 +38,14 @@ let getPreguntaQuery = (req: any): PreguntaQuery => {
         query.alternativas = req.query.array_alt;
     }
 
+    if(req.query.desc != null){
+        query.peso = Number(req.query.peso);
+    }
+
+    if(req.query.array_alt != null){
+        query.pesoAlternativas = req.query.array_pes;
+    }
+
     return query;
 }
 
@@ -58,7 +68,9 @@ preguntaRoutes.post('' , (req, resp)=>{
         tipoAlternativa   : req.body.tipoAlternativa,
         tipoVariable      : req.body.tipoVariable,
         alternativas      : req.body.alternativas,
-        nroPagina         : req.body.nroPagina
+        nroPagina         : req.body.nroPagina,
+        peso              : req.body.peso,
+        pesoAlternativas  : req.body.pesoAlternativas
     };
 
     Pregunta.create(pregunta)
