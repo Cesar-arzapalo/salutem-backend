@@ -2,9 +2,10 @@ import express from 'express';
 
 export class  Server {
      public app: express.Application;
-     public port: number =  3000;
+     public port: number;
 
-     constructor (){
+     constructor (port: number){
+         this.port = port;
          this.app = express();
      }
 
