@@ -24,9 +24,8 @@ export const correrXFuzzy = async(cantidadSintomas: number, gravedadSintoma: num
     
     //ejecuta xFuzzy
     const comando = await execSync(comnadoXFuzzy).toString();
-
     //muestra el resultado de xFuzzy
-    return await leerResultado();
+    return Number(comando.split(' ')[0]);
 
 };
 
