@@ -1,7 +1,7 @@
 const { retrocederUnaCarpeta, leerArchivo, escribirArchivo } = require('../manageString/manageString');
 
 
-const pathRaiz = retrocederUnaCarpeta(__dirname.toString());
+const pathRaiz = retrocederUnaCarpeta(retrocederUnaCarpeta(__dirname.toString()));
 const direccionDatoEntrada = `${pathRaiz}\\salutem\\input.txt`;
 const direccionDatoSalida = `${pathRaiz}\\salutem\\output.txt`;
 

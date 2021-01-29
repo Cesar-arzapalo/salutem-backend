@@ -3,7 +3,7 @@ const { retrocederUnaCarpeta } = require('../manageString/manageString');
 
 import {execSync} from "child_process";
 
-const pathRaiz = retrocederUnaCarpeta(__dirname.toString());
+const pathRaiz = retrocederUnaCarpeta(retrocederUnaCarpeta(__dirname.toString()));
 
 const direccionXFuzzyBaseEjecutable = `${pathRaiz}\\salutem\\salutem.jar`;;
 
@@ -17,11 +17,9 @@ const esperaTiempo = (time: number) => new Promise((resolve, reject) => {
 
 });
 
-
 export const correrXFuzzy = async(cantidadSintomas: number, gravedadSintoma: number, contacto: number, riesgo:number) => {
     //escribe los datos de entrada
     await escribirParametros(cantidadSintomas, gravedadSintoma, contacto, riesgo);
-    
     //ejecuta xFuzzy
     const comando = await execSync(comnadoXFuzzy).toString();
     //muestra el resultado de xFuzzy
